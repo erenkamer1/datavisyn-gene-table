@@ -105,21 +105,6 @@ npm run test:ui
 npm run test:debug
 ```
 
-### Special Test Scenarios
-
-```bash
-# Only gene table tests
-npm run test:gene-table
-
-# Mantine storybook integration tests
-npm run test:mantine-storybook
-
-# Visual regression tests
-npm run test:visual
-
-# View test report
-npm run test:report
-```
 
 ### Test Coverage Areas
 
@@ -141,8 +126,6 @@ datavisyn-gene-table/
 │   └── main.tsx                 # React application entry point
 ├── 📁 tests/
 │   ├── gene-table-advanced.spec.ts    # Detailed functional tests
-│   ├── mantine-storybook.spec.ts      # UI library integration tests
-│   └── visual-regression.spec.ts      # Visual regression tests
 ├── 📁 public/
 │   └── genes_human.csv          # Gene data file (5000+ rows)
 ├── package.json                 # NPM dependencies and scripts
