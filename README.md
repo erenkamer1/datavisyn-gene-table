@@ -38,8 +38,6 @@ This project is a hybrid challenge solution developed for **Datavisyn** company.
 ### QA & Testing
 - **Playwright 1.55.0** - End-to-end test framework
 - **TypeScript Test Suite** - Type-safe test writing
-- **Visual Regression Testing** - Snapshot testing for UI changes
-- **Cross-browser Testing** - Chromium, Firefox, WebKit support
 
 ### DevOps & Tools
 - **ESLint** - Code quality and consistency
@@ -126,24 +124,6 @@ npm run test:report
 ### Test Coverage Areas
 
 #### ✅ Functional Tests
-- **Table Render Tests**: Correct display of all columns
-- **Data Formatting**: Formatted display of Ensembl ID, biotype, position data
-- **Filtering Tests**: Biotype and chromosome-based filtering
-- **Sorting Tests**: Ascending/descending sorting for all columns
-- **Pagination Tests**: Page navigation and page size changes
-- **Search Tests**: Global search functionality
-
-#### 🎨 UI/UX Tests
-- **Detail Panel Tests**: Gene selection and detail viewing
-- **Chart Render Tests**: Loading of ECharts visualizations
-- **Responsive Design**: Behavior on different screen sizes
-- **External Links**: Correct functioning of Ensembl and GeneCards links
-- **Error Handling**: Network errors and edge cases
-
-#### 📸 Visual Regression
-- **Snapshot Testing**: Visual consistency of UI components
-- **Cross-browser Compatibility**: Render differences in different browsers
-- **Theme Consistency**: Consistent application of Mantine theming
 
 ## 📊 Project Structure
 
@@ -226,105 +206,10 @@ datavisyn-gene-table/
 - **Generic Components**: Reusable and type-safe component architecture
 - **Runtime Validation**: Runtime type checking for CSV parsing
 
-## 🧪 Test Strategy
-
-### Test Pyramid Approach
-
-```
-    🔺 E2E Tests (Playwright)
-     │ • User journey tests
-     │ • Cross-browser compatibility
-     │ • Visual regression testing
-     │
-    🔺 Integration Tests
-     │ • Component integration
-     │ • API mocking tests
-     │ • State management tests
-     │
-    🔺 Unit Tests (Future)
-       • Utility function tests
-       • Pure component tests
-       • Business logic tests
-```
-
-### Test Categories
-
-1. **Smoke Tests**: Basic functionality and render tests
-2. **Feature Tests**: Comprehensive user interaction tests  
-3. **Edge Case Tests**: Error handling and boundary condition tests
-4. **Performance Tests**: Performance tests with large datasets
-5. **Accessibility Tests**: ARIA compliance and keyboard navigation
-
-## 📈 Future Developments
-
-### 🚀 Roadmap
-
-#### v1.1 - API Integration
-- [ ] Real-time gene expression data (GTEx API)
-- [ ] MyGene.info integration
-- [ ] ENSEMBL REST API integration
-- [ ] Caching strategy and offline support
-
-#### v1.2 - Advanced Visualizations
-- [ ] Genomic visualization with Gosling.js
-- [ ] Gene pathway analysis charts
-- [ ] Protein interaction networks
-- [ ] Comparative genomics view
-
-#### v1.3 - Collaboration Features
-- [ ] Gene list export/import
-- [ ] Annotation and notes system
-- [ ] Share functionality
-- [ ] User preferences and saved filters
-
-#### v1.4 - Analytics & Insights
-- [ ] Machine learning-based gene recommendations
-- [ ] Statistical analysis dashboard
-- [ ] Batch gene analysis tools
-- [ ] Advanced search and query builder
-
-### 🛠 Technical Improvements
-
-- **State Management**: Redux Toolkit for complex state
-- **PWA Features**: Offline mode and background sync
-- **Micro-frontends**: Modularization for scalable architecture
-- **GraphQL**: Efficient data fetching
-- **Server Components**: React 19 server components adoption
-
-## 🤝 Contributing
-
-### Development Workflow
-
-1. **Fork & Clone**: Fork the repository and clone locally
-2. **Branch Strategy**: Create branch in `feature/feature-name` format
-3. **Commit Convention**: Use Conventional Commits format
-4. **Testing**: Write tests for new features
-5. **Pull Request**: Create PR with detailed description
-
-### Code Standards
-
-- **ESLint Rules**: Automated code quality checks
-- **Prettier**: Consistent code formatting
-- **TypeScript Strict**: Type safety enforcement
-- **Test Coverage**: Minimum 80% test coverage
-- **Performance Budget**: Bundle size and loading time limits
-
-## 📞 Support and Contact
-
-### 🐛 Bug Reports
-- Create detailed bug report in GitHub Issues
-- Include reproduction steps and environment information
-- Share screenshots and console logs
-
-### 💡 Feature Requests
-- Share suggestions in Discussion tab
-- Explain use case and business value
-- Include mock-ups and wireframes
-
 ### 📧 Contact
 - **Project Owner**: Eren Kamer
-- **Email**: [email to be updated]
-- **LinkedIn**: [profile link to be updated]
+- **Email**: erenkamer28@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/eren-kamer-b82875171/
 
 ## 📄 License
 
