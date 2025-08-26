@@ -1,7 +1,7 @@
 {
   "config": {
-    "configFile": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\playwright.config.ts",
-    "rootDir": "C:/Users/Eren Kamer/Desktop/DATAVISYN/challenge/datavisyn-gene-table/tests",
+    "configFile": "c:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\playwright.config.ts",
+    "rootDir": "c:/Users/Eren Kamer/Desktop/DATAVISYN/challenge/datavisyn-gene-table/tests",
     "forbidOnly": false,
     "fullyParallel": false,
     "globalSetup": null,
@@ -33,7 +33,7 @@
     "quiet": false,
     "projects": [
       {
-        "outputDir": "C:/Users/Eren Kamer/Desktop/DATAVISYN/challenge/datavisyn-gene-table/test-results",
+        "outputDir": "c:/Users/Eren Kamer/Desktop/DATAVISYN/challenge/datavisyn-gene-table/test-results",
         "repeatEach": 1,
         "retries": 0,
         "metadata": {
@@ -41,7 +41,7 @@
         },
         "id": "chromium",
         "name": "chromium",
-        "testDir": "C:/Users/Eren Kamer/Desktop/DATAVISYN/challenge/datavisyn-gene-table/tests",
+        "testDir": "c:/Users/Eren Kamer/Desktop/DATAVISYN/challenge/datavisyn-gene-table/tests",
         "testIgnore": [],
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
@@ -74,80 +74,49 @@
           "file": "gene-table-advanced.spec.ts",
           "line": 8,
           "column": 6,
-          "specs": [
+          "specs": [],
+          "suites": [
             {
-              "title": "should filter genes by chromosome",
-              "ok": false,
-              "tags": [],
-              "tests": [
+              "title": "Bug Fix Validation Tests",
+              "file": "gene-table-advanced.spec.ts",
+              "line": 292,
+              "column": 8,
+              "specs": [
                 {
-                  "timeout": 30000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
+                  "title": "Bug #2: Biotype Filter - should filter correctly for \"Protein Coding\"",
+                  "ok": true,
+                  "tags": [],
+                  "tests": [
                     {
-                      "workerIndex": 0,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 123038,
-                      "error": {
-                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"4\"\u001b[39m\nReceived: \u001b[31m\"X\"\u001b[39m",
-                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"4\"\u001b[39m\nReceived: \u001b[31m\"X\"\u001b[39m\n    at C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\tests\\gene-table-advanced.spec.ts:149:24",
-                        "location": {
-                          "file": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\tests\\gene-table-advanced.spec.ts",
-                          "column": 24,
-                          "line": 149
-                        },
-                        "snippet": "\u001b[0m \u001b[90m 147 |\u001b[39m     \u001b[36mfor\u001b[39m (\u001b[36mlet\u001b[39m i \u001b[33m=\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m i \u001b[33m<\u001b[39m max\u001b[33m;\u001b[39m i\u001b[33m++\u001b[39m) {\n \u001b[90m 148 |\u001b[39m       \u001b[36mconst\u001b[39m cellText \u001b[33m=\u001b[39m (\u001b[36mawait\u001b[39m rows\u001b[33m.\u001b[39mnth(i)\u001b[33m.\u001b[39mlocator(\u001b[32m'td'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m4\u001b[39m)\u001b[33m.\u001b[39mtextContent())\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtrim()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 149 |\u001b[39m       expect(cellText)\u001b[33m.\u001b[39mtoBe(chrValue)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 150 |\u001b[39m     }\n \u001b[90m 151 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 152 |\u001b[39m\u001b[0m"
-                      },
-                      "errors": [
-                        {
-                          "location": {
-                            "file": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\tests\\gene-table-advanced.spec.ts",
-                            "column": 24,
-                            "line": 149
-                          },
-                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"4\"\u001b[39m\nReceived: \u001b[31m\"X\"\u001b[39m\n\n\u001b[0m \u001b[90m 147 |\u001b[39m     \u001b[36mfor\u001b[39m (\u001b[36mlet\u001b[39m i \u001b[33m=\u001b[39m \u001b[35m0\u001b[39m\u001b[33m;\u001b[39m i \u001b[33m<\u001b[39m max\u001b[33m;\u001b[39m i\u001b[33m++\u001b[39m) {\n \u001b[90m 148 |\u001b[39m       \u001b[36mconst\u001b[39m cellText \u001b[33m=\u001b[39m (\u001b[36mawait\u001b[39m rows\u001b[33m.\u001b[39mnth(i)\u001b[33m.\u001b[39mlocator(\u001b[32m'td'\u001b[39m)\u001b[33m.\u001b[39mnth(\u001b[35m4\u001b[39m)\u001b[33m.\u001b[39mtextContent())\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtrim()\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 149 |\u001b[39m       expect(cellText)\u001b[33m.\u001b[39mtoBe(chrValue)\u001b[33m;\u001b[39m\n \u001b[90m     |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 150 |\u001b[39m     }\n \u001b[90m 151 |\u001b[39m   })\u001b[33m;\u001b[39m\n \u001b[90m 152 |\u001b[39m\u001b[0m\n\u001b[2m    at C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\tests\\gene-table-advanced.spec.ts:149:24\u001b[22m"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-08-20T19:48:42.753Z",
+                      "timeout": 30000,
                       "annotations": [],
-                      "attachments": [
+                      "expectedStatus": "passed",
+                      "projectId": "chromium",
+                      "projectName": "chromium",
+                      "results": [
                         {
-                          "name": "screenshot",
-                          "contentType": "image/png",
-                          "path": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\test-results\\gene-table-advanced-Gene-T-a0b12--filter-genes-by-chromosome-chromium\\test-failed-1.png"
-                        },
-                        {
-                          "name": "video",
-                          "contentType": "video/webm",
-                          "path": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\test-results\\gene-table-advanced-Gene-T-a0b12--filter-genes-by-chromosome-chromium\\video.webm"
-                        },
-                        {
-                          "name": "error-context",
-                          "contentType": "text/markdown",
-                          "path": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\test-results\\gene-table-advanced-Gene-T-a0b12--filter-genes-by-chromosome-chromium\\error-context.md"
+                          "workerIndex": 33,
+                          "parallelIndex": 0,
+                          "status": "passed",
+                          "duration": 11825,
+                          "errors": [],
+                          "stdout": [],
+                          "stderr": [],
+                          "retry": 0,
+                          "startTime": "2025-08-26T21:05:27.562Z",
+                          "annotations": [],
+                          "attachments": []
                         }
                       ],
-                      "errorLocation": {
-                        "file": "C:\\Users\\Eren Kamer\\Desktop\\DATAVISYN\\challenge\\datavisyn-gene-table\\tests\\gene-table-advanced.spec.ts",
-                        "column": 24,
-                        "line": 149
-                      }
+                      "status": "expected"
                     }
                   ],
-                  "status": "unexpected"
+                  "id": "4667a2f0309c7745f23e-89ea544e58c6fb5c236a",
+                  "file": "gene-table-advanced.spec.ts",
+                  "line": 335,
+                  "column": 5
                 }
-              ],
-              "id": "4667a2f0309c7745f23e-d597ece5b739d4a9115c",
-              "file": "gene-table-advanced.spec.ts",
-              "line": 104,
-              "column": 3
+              ]
             }
           ]
         }
@@ -156,11 +125,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-08-20T19:48:41.740Z",
-    "duration": 124494.278,
-    "expected": 0,
+    "startTime": "2025-08-26T21:05:25.165Z",
+    "duration": 14411.812000000384,
+    "expected": 1,
     "skipped": 0,
-    "unexpected": 1,
+    "unexpected": 0,
     "flaky": 0
   }
 }

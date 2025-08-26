@@ -69,6 +69,12 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
             </Tooltip>
           );
         },
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue) return true;
+          const cellValue = row.getValue(columnId) as string;
+          const displayValue = cellValue || 'Unnamed gene';
+          return displayValue.toLowerCase().includes(filterValue.toLowerCase());
+        },
       },
       {
         accessorKey: 'biotype',
@@ -96,8 +102,11 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
             </Badge>
           );
         },
-        filterVariant: 'multi-select',
-        filterSelectOptions: Array.from(new Set(data.map(gene => gene.biotype))),
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue) return true;
+          const cellValue = row.getValue(columnId) as string;
+          return cellValue.toLowerCase().includes(filterValue.toLowerCase());
+        },
       },
       {
         accessorKey: 'chromosome',
@@ -108,15 +117,12 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
             {cell.getValue<string>()}
           </Badge>
         ),
-        filterVariant: 'multi-select',
-        filterSelectOptions: Array.from(new Set(data.map(gene => gene.chromosome)))
-          .sort((a, b) => {
-            // Chromosome sorting: 1-22, X, Y
-            if (a === 'X') return b === 'Y' ? -1 : 1;
-            if (a === 'Y') return 1;
-            if (b === 'X' || b === 'Y') return -1;
-            return parseInt(a) - parseInt(b);
-          }),
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue) return true;
+          const cellValue = row.getValue(columnId) as string;
+          // Exact match for chromosome (4 should not match 14)
+          return cellValue.toLowerCase() === filterValue.toLowerCase();
+        },
       },
       {
         accessorKey: 'seqRegionStart',
@@ -127,6 +133,16 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
             {cell.getValue<number>().toLocaleString()}
           </Text>
         ),
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue) return true;
+          const cellValue = row.getValue(columnId) as number;
+          const formattedValue = cellValue.toLocaleString();
+          const searchValue = filterValue;
+          
+          // Sadece başlangıçta eşleşenler (41. ile başlayanlar)
+          return cellValue.toString().startsWith(searchValue) || 
+                 formattedValue.startsWith(searchValue);
+        },
       },
       {
         accessorKey: 'seqRegionEnd',
@@ -137,6 +153,16 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
             {cell.getValue<number>().toLocaleString()}
           </Text>
         ),
+        filterFn: (row, columnId, filterValue) => {
+          if (!filterValue) return true;
+          const cellValue = row.getValue(columnId) as number;
+          const formattedValue = cellValue.toLocaleString();
+          const searchValue = filterValue;
+          
+          // Sadece başlangıçta eşleşenler (41. ile başlayanlar)
+          return cellValue.toString().startsWith(searchValue) || 
+                 formattedValue.startsWith(searchValue);
+        },
       },
       {
         id: 'actions',
@@ -145,7 +171,7 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
         enableSorting: false,
         enableFiltering: false,
         Cell: ({ row }) => (
-          <Group gap="xs">
+          <Group spacing="xs">
             <Tooltip label="View gene details">
               <ActionIcon
                 variant="light"
@@ -211,7 +237,7 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
           borderRadius: '12px 12px 0 0',
         }}
       >
-        <Group justify="space-between">
+        <Group position="apart">
           <Group spacing="lg">
             <Box
               style={{
@@ -273,7 +299,7 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
     // Pagination
     initialState: {
       pagination: { pageIndex: 0, pageSize: 50 },
-      density: 'sm',
+      density: 'xs',
     },
     
     // Loading, error and selection states
@@ -285,8 +311,6 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
     
     mantineTableProps: {
       highlightOnHover: true,
-      withColumnBorders: true,
-      withRowBorders: true,
       style: {
         borderRadius: '0 0 12px 12px',
         overflow: 'hidden',
@@ -303,11 +327,11 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
         borderBottom: '2px solid #cbd5e1',
       },
     },
-    mantineTableBodyRowProps: ({ row, rowIndex }) => ({
+    mantineTableBodyRowProps: ({ row, staticRowIndex }) => ({
       onClick: () => onGeneSelect?.(row.original),
       style: {
         cursor: 'pointer',
-        backgroundColor: rowIndex % 2 === 0 ? '#ffffff' : '#f8fafc',
+        backgroundColor: staticRowIndex % 2 === 0 ? '#ffffff' : '#f8fafc',
         transition: 'all 0.2s ease',
       },
       onMouseEnter: (event) => {
@@ -315,7 +339,7 @@ const GeneTable = ({ data, onGeneSelect, loading = false, error }: GeneTableProp
         event.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
       },
       onMouseLeave: (event) => {
-        event.currentTarget.style.background = rowIndex % 2 === 0 ? '#ffffff' : '#f8fafc';
+        event.currentTarget.style.background = staticRowIndex % 2 === 0 ? '#ffffff' : '#f8fafc';
         event.currentTarget.style.boxShadow = 'none';
       },
     }),
