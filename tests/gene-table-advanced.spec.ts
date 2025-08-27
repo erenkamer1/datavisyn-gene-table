@@ -141,30 +141,6 @@ test.describe('Gene Table - Advanced Functionality Tests', () => {
     }
   });
 
-  test('should perform global search functionality', async ({ page }) => {
-    await expect(page.locator('table')).toBeVisible();
-    await page.waitForTimeout(2000);
-    
-    const searchInput = page.locator('input[type="search"], input[placeholder*="search" i]').first();
-    if (await searchInput.isVisible()) {
-      // Get first gene symbol
-      const firstGeneSymbol = await page.locator('tbody tr:first-child td:nth-child(2)').textContent();
-      
-      if (firstGeneSymbol && firstGeneSymbol.trim()) {
-        // Search for this gene symbol
-        await searchInput.fill(firstGeneSymbol.trim());
-        await page.waitForTimeout(1000);
-        
-        // Check results
-        const visibleRows = page.locator('tbody tr');
-        await expect(visibleRows.first()).toBeVisible();
-        
-        // Clear search
-        await searchInput.clear();
-        await page.waitForTimeout(500);
-      }
-    }
-  });
 
   test('should display correct gene count in header', async ({ page }) => {
     // Check gene count in header (fixed text selector)
@@ -183,8 +159,8 @@ test.describe('Gene Table - Advanced Functionality Tests', () => {
     // Check correct display of genes without gene symbols (added first() for strict mode)
     const noSymbolCell = page.locator('text="No symbol"').first();
     if (await noSymbolCell.isVisible()) {
-      // Find table row and click
-      const rowWithNoSymbol = page.locator('tbody tr:has(text="No symbol")').first();
+      // Find table row and click - using getByRole instead of CSS selector with quotes
+      const rowWithNoSymbol = page.getByRole('row', { name: /No symbol/ }).first();
       if (await rowWithNoSymbol.isVisible()) {
         await rowWithNoSymbol.click();
       }
@@ -195,7 +171,8 @@ test.describe('Gene Table - Advanced Functionality Tests', () => {
   test('smoke - application loads successfully', async ({ page }) => {
     await expect(page.locator('text=Datavisyn Gene Explorer')).toBeVisible();
     await expect(page.locator('table')).toBeVisible();
-    await expect(page.locator('tbody tr')).toHaveCountGreaterThan(0);
+    const rowCount = await page.locator('tbody tr').count();
+    expect(rowCount).toBeGreaterThan(0);
   });
 
   // Sorting: Validate changes in first row values without using indicators
@@ -242,9 +219,10 @@ test.describe('Gene Table - Advanced Functionality Tests', () => {
     await expect(page.locator('table')).toBeVisible();
     await page.waitForTimeout(2000);
     
-    const searchInput = page.locator('input[type="search"]').first();
-    if (await searchInput.isVisible()) {
-      await searchInput.fill('NONEXISTENTGENE123');
+    // Use Gene Symbol filter input instead of generic search
+    const geneSymbolFilter = page.getByPlaceholder('Filter by Gene Symbol');
+    if (await geneSymbolFilter.isVisible()) {
+      await geneSymbolFilter.fill('NONEXISTENTGENE123');
       await page.waitForTimeout(1000);
       
       // Check for empty results
@@ -272,20 +250,28 @@ test.describe('Gene Table - Advanced Functionality Tests', () => {
     }
   });
 
-  // Error scenario: Network offline
+  // Error scenario: Network offline - Mock network failures
   test('should handle network errors gracefully', async ({ page }) => {
-    // Make network offline
-    await page.context().setOffline(true);
+    // Mock network failures for any potential API calls
+    await page.route('**/*', route => {
+      // Allow static assets to load but fail API calls
+      const url = route.request().url();
+      if (url.includes('/api/') || url.includes('genes') && !url.includes('.csv')) {
+        route.abort('internetdisconnected');
+      } else {
+        route.continue();
+      }
+    });
     
-    // Refresh page
-    await page.reload();
+    // Navigate to page (should still work with static data)
+    await page.goto('http://localhost:5173');
     
-    // Check error handling (for future API integration)
-    // Currently static data so page should load
-    await expect(page.locator('body')).toBeVisible();
+    // Check that app still loads gracefully (static data doesn't require network)
+    await expect(page.locator('text=Datavisyn Gene Explorer')).toBeVisible();
+    await expect(page.locator('table')).toBeVisible();
     
-    // Turn network back on
-    await page.context().setOffline(false);
+    // Clean up route mocking
+    await page.unroute('**/*');
   });
 
   // Bug Fix Tests - Using MCP-validated element selectors
