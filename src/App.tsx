@@ -27,7 +27,6 @@ function App() {
         const result = await loadGenesFromCSV();
         
         if (result.errors.length > 0) {
-          console.warn('CSV parsing warnings:', result.errors);
           notifications.show({
             title: 'Data Loading Warning',
             message: `${result.meta.invalidRows} rows skipped. Total ${result.meta.validRows} genes loaded.`,
@@ -58,7 +57,6 @@ function App() {
         }
         
       } catch (err) {
-        console.error('Error loading gene data:', err);
         setError(err instanceof Error ? err.message : 'Unknown error');
         
         // Use sample data in case of error

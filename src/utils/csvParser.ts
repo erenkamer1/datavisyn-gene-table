@@ -48,7 +48,6 @@ export const parseGeneCSV = (csvContent: string): CSVParseResult => {
           'Seq region end': 'seqRegionEnd'
         };
         
-        // Log header transformation for debug
         let transformed = headerMap[header];
         if (!transformed) {
           // Fallback: remove spaces and make camelCase
@@ -59,7 +58,6 @@ export const parseGeneCSV = (csvContent: string): CSVParseResult => {
             .replace(/symbol$/, 'Symbol');
         }
         
-        console.log(`Header transform: "${header}" -> "${transformed}"`);
         return transformed;
       }
     });
@@ -68,11 +66,6 @@ export const parseGeneCSV = (csvContent: string): CSVParseResult => {
 
     parseResult.data.forEach((row: any, index: number) => {
       try {
-        // Log first few rows for debug
-        if (index < 3) {
-          console.log(`Row ${index + 1} raw data:`, row);
-        }
-        
         const gene = validateAndTransformGene(row, index);
         if (gene) {
           result.data.push(gene);
@@ -103,13 +96,6 @@ export const parseGeneCSV = (csvContent: string): CSVParseResult => {
  * Converts raw CSV row to Gene object and validates it
  */
 const validateAndTransformGene = (row: any, rowIndex: number): Gene | null => {
-  // Check fields in first few rows for debug
-  if (rowIndex < 3) {
-    console.log(`Row ${rowIndex + 1} fields:`, Object.keys(row));
-    console.log(`Row ${rowIndex + 1} seqRegionStart:`, row.seqRegionStart, row.seqregionstart);
-    console.log(`Row ${rowIndex + 1} seqRegionEnd:`, row.seqRegionEnd, row.seqregionend);
-  }
-
   // Check required fields - only ensembl and chromosome are mandatory
   if (!row.ensembl || !row.chromosome) {
     return null;
@@ -153,9 +139,7 @@ const parseNumericValue = (value: any): number | null => {
 
   const num = Number(value);
   
-  // Detailed log for debug
   if (isNaN(num)) {
-    console.warn('Cannot parse numeric value:', value, 'type:', typeof value);
     return null;
   }
   
